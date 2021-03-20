@@ -32,11 +32,17 @@ const server = () => {
         },
     });
 };
+const html = () => {
+    return src(["src/*.html"])
+        .pipe(htmlmin({ collapseWhitespace: true }))
+        .pipe(dest(path.build.html));
+};
 const styles = () => {
     return src(["src/scss/*.scss", "src/scss/modules/*.scss"])
         .pipe(concat("min.css"))
         .pipe(autoprefixer({}))
         .pipe(dest(path.build.css));
 };
+exports.html = html;
 exports.styles = styles;
-exports.default = series(server);
+exports.default = series(html, server);
