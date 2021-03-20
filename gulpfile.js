@@ -13,6 +13,14 @@ const plumber = require("gulp-plumber");
 const sourcemaps = require("gulp-sourcemaps");
 const rename = require("gulp-rename");
 const mediagroup = require("gulp-group-css-media-queries");
+const gulpServer = () => {
+    sync.init({
+        notify: true,
+        server: {
+            baseDir: "dist",
+        },
+    });
+};
 const path = {
     build: {
         css: "dist" + "/" + "css",
@@ -25,14 +33,7 @@ const path = {
         html: "src" + "/",
     },
 };
-const gulpServer = () => {
-    sync.init({
-        notify: true,
-        server: {
-            baseDir: "dist",
-        },
-    });
-};
+
 const html = () => {
     return src(["src/*.html"])
         .pipe(htmlmin({ collapseWhitespace: true }))
@@ -87,7 +88,7 @@ const styles = () => {
         .pipe(
             autoprefixer({
                 grid: true,
-                cascade: true,
+                cascade: false,
                 overrideBrowserslist: ["last 5 version"],
             })
         )
