@@ -40,7 +40,7 @@ const html = () => {
 };
 // "src/scss/*.scss",
 const styles = () => {
-    return src(["src/scss/modules/*.scss"])
+    return src(["src/scss/*.scss","src/scss/modules/*.scss"])
         .pipe(plumber())
         .pipe(concat("styles"))
         .pipe(scss({ outputStyle: "expanded" }))
@@ -61,7 +61,7 @@ const styles = () => {
         .pipe(csso())
         .pipe(
             rename({
-                extname: ""
+                extname: "",
             })
         )
         .pipe(dest(path.build.css));
