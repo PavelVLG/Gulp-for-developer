@@ -38,10 +38,11 @@ const html = () => {
         .pipe(htmlmin({ collapseWhitespace: true }))
         .pipe(dest(path.build.html));
 };
+// "src/scss/*.scss",
 const styles = () => {
-    return src(["src/scss/*.scss", "src/scss/modules/*.scss"])
+    return src(["src/scss/modules/*.scss"])
         .pipe(plumber())
-        .pipe(concat("styles.scss"))
+        .pipe(concat("styles"))
         .pipe(scss({ outputStyle: "expanded" }))
         .pipe(
             autoprefixer({
@@ -53,17 +54,17 @@ const styles = () => {
         .pipe(mediagroup())
         .pipe(
             rename({
-                extname: "styles.min.css.map",
-            })
-        )
-        .pipe(csso())
-        .pipe(
-            rename({
-                extname: "styles.min.css",
+                extname: ".min.css.map",
             })
         )
         .pipe(dest(path.build.css))
-        
+        .pipe(csso())
+        .pipe(
+            rename({
+                extname: ""
+            })
+        )
+        .pipe(dest(path.build.css));
 };
 exports.html = html;
 exports.styles = styles;

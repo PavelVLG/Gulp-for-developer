@@ -1,0 +1,14 @@
+tabs .tab-header-wrap {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 1px;
+}
+
+tabs .tab-header {
+  padding: 8px 20px;
+  font-weight: bold;
+  -webkit-transition: color .2s linear;
+  -o-transition: color .2s linear;
+  transition: color .2s linear;
+}
