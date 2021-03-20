@@ -41,7 +41,6 @@ const html = () => {
 const js = () => {
     return src(["src/js/*.js"])
         .pipe(concat("scripts"))
- 
         .pipe(
             rename({
                 extname: ".min.js.map",
@@ -66,8 +65,8 @@ const jsAll = () => {
 const styles = () => {
     return src(["src/scss/*.scss", "src/scss/modules/*.scss"])
         .pipe(plumber())
-        .pipe(concat("styles"))
-        .pipe(scss({ outputStyle: "expanded" }))
+        .pipe(scss({ outputStyle: "expanded"}))
+        .pipe(concat("styles.scss"))
         .pipe(
             autoprefixer({
                 grid: true,
