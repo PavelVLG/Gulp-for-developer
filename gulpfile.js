@@ -63,9 +63,9 @@ const jsAll = () => {
 };
 // "src/scss/*.scss",
 const styles = () => {
-    return src(["src/scss/*.scss", "src/scss/modules/*.scss"])
+    return src("src/scss/*.scss")
         .pipe(plumber())
-        .pipe(scss({ outputStyle: "expanded"}))
+        .pipe(scss({ outputStyle: "expanded" }))
         .pipe(concat("styles.scss"))
         .pipe(
             autoprefixer({
