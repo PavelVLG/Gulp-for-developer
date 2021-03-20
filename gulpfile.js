@@ -26,11 +26,17 @@ const path = {
         css: "dist" + "/" + "css",
         js: "dist" + "/" + "js",
         html: "dist" + "/",
+        source: "dist" + "/" + "source",
     },
     dev: {
         css: "src" + "/" + "scss" + "/**" + "/*" + ".scss",
         js: "src" + "/" + "js",
         html: "src" + "/",
+        pictures: {
+            img: "src" + "/" + "source" + "/" + "img" + "/*" + ".img",
+            svg: "src" + "/" + "source" + "/" + "svg" + "/*" + ".svg",
+            png: "src" + "/" + "source" + "/" + "png" + "/*" + ".png",
+        },
     },
 };
 
@@ -98,6 +104,9 @@ const styles = () => {
         .pipe(dest(path.build.css))
         .pipe(sync.stream());
 };
+const pictures = () => {
+    src(path.dev.pictures).pipe(dest(path.build.source));
+};
 const watching = () => {
     watch(path.dev.css, styles);
     watch(path.dev.js, js);
@@ -110,4 +119,5 @@ exports.jsLibr = jsLibr;
 exports.styles = styles;
 exports.watching = watching;
 exports.server = server;
+exports.pictures = pictures;
 exports.default = series(jsLibr, js, styles, html, parallel(server, watching));
