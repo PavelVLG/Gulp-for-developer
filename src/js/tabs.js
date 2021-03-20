@@ -21,7 +21,7 @@
          * Активация таба по его индексу
          * @param {Number} index - индекс таба, который нужно активировать
          */
-        console.log("И будетЖ;)");
+
         var selectTab = function (index) {
             $tabHeaders.removeClass("active").eq(index).addClass("active");
             $tabContent.removeClass("active").eq(index).addClass("active");

@@ -8,13 +8,18 @@ body {
 
 a {
     color: $c-link-main;
-    transition: color .2s linear;
+    transition: color 0.2s linear;
 
     &:hover {
         color: $c-link-hover;
     }
 }
-
+.wrapper {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    position: relative;
+}
 .wrap {
     background-color: #fff;
     padding: 0 calc((100% - 300px) / 2);
@@ -93,7 +98,6 @@ a {
 
 .main {
     display: flex;
-
     &-sidebar {
         @media (min-width: $tablet-min) {
             flex-shrink: 0;
@@ -110,7 +114,6 @@ a {
         @media (min-width: $desktop-min) {
             width: 300px;
         }
-
     }
 
     &-content {
@@ -149,7 +152,7 @@ ul:not([class]) {
 code {
     display: inline-block;
     vertical-align: baseline;
-    padding: 0 .25em;
+    padding: 0 0.25em;
     background-color: $c-bg-gray;
-    border-radius: .125em;
+    border-radius: 0.125em;
 }
