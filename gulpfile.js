@@ -38,10 +38,15 @@ const html = () => {
         .pipe(dest(path.build.html));
 };
 const styles = () => {
-    return src(["src/scss/*.scss", "src/scss/modules/*.scss"])
-        .pipe(concat("min.css"))
-        .pipe(autoprefixer({}))
-        .pipe(dest(path.build.css));
+    return (
+        src(["src/scss/*.scss", "src/scss/modules/*.scss"])
+
+            .pipe(concat())
+            .pipe(scss().on("error", scss.logError))
+            // .pipe(autoprefixer({}))
+            .pipe(re)
+            .pipe(dest(path.build.css))
+    );
 };
 exports.html = html;
 exports.styles = styles;
