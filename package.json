@@ -26,5 +26,8 @@
         "gulp-sourcemaps": "^3.0.0",
         "gulp-uglify-es": "^2.0.0",
         "gulp-wait": "0.0.2"
+    },
+    "dependencies": {
+        "jquery": "^3.6.0"
     }
 }
