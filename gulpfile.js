@@ -1,14 +1,12 @@
 const { src, dest, series, watch, parallel } = require("gulp");
 const scss = require("gulp-sass");
 const csso = require("gulp-csso");
-const include = require("gulp-file-include");
 const htmlmin = require("gulp-htmlmin");
 const del = require("del");
 const concat = require("gulp-concat");
 const autoprefixer = require("gulp-autoprefixer");
 const sync = require("browser-sync").create();
 const uglify = require("gulp-uglify-es").default;
-const wait = require("gulp-wait");
 const plumber = require("gulp-plumber");
 const sourcemaps = require("gulp-sourcemaps");
 const rename = require("gulp-rename");
@@ -96,6 +94,7 @@ const styles = () => {
         )
         .pipe(dest(path.build.css))
         .pipe(csso())
+        .pipe(mediagroup())
         .pipe(
             rename({
                 extname: "",
