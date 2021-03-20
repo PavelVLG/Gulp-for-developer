@@ -1,5 +1,5 @@
 const { src, dest, series, watch, parallel } = require("gulp");
-const scss = require("gulp-sass");
+const scss = require("node-sass");
 const csso = require("gulp-csso");
 const include = require("gulp-file-include");
 const htmlmin = require("gulp-htmlmin");
@@ -39,14 +39,10 @@ const html = () => {
         .pipe(dest(path.build.html));
 };
 const styles = () => {
-    return (
-        src(["src/scss/*.scss", "src/scss/modules/*.scss"])
-            .pipe(concat())
-            .pipe(scss().on("error", scss.logError))
-            // .pipe(autoprefixer({}))
-            .pipe(rename("styles.min.css"))
-            .pipe(dest(path.build.css))
-    );
+    return src(["src/*/*.scss"])
+        .pipe(concat("min.scss"))
+        .pipe(scss())
+        .pipe(dest(path.build.css));
 };
 exports.html = html;
 exports.styles = styles;
