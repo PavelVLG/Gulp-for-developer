@@ -12,7 +12,7 @@ const wait = require("gulp-wait");
 const plumber = require("gulp-plumber");
 const sourcemaps = require("gulp-sourcemaps");
 const rename = require("gulp-rename");
-
+const mediagroup = require("gulp-group-css-media-queries");
 const path = {
     build: {
         css: "dist" + "/" + " css",
@@ -25,7 +25,7 @@ const path = {
         html: "src" + "/",
     },
 };
-const server = () => {
+const gulpServer = () => {
     sync.init({
         notify: true,
         server: {
@@ -39,15 +39,25 @@ const html = () => {
         .pipe(dest(path.build.html));
 };
 const styles = () => {
-    return (
-        src(["src/scss/modules/*.scss"])
-            // .pipe(concat("min.scss"))
-            .pipe(scss())
-            .pipe(rename("min.css"))
-
-            .pipe(dest(path.build.css))
-    );
+    return src(["src/*/*.scss", "src/scss/modules/*.scss"])
+        .pipe(plumber())
+        .pipe(scss({outputStyle:"expanded"})
+        .pipe(concat())
+        .pipe(
+            autoprefixer({
+                grid: true,
+                cascade: true,
+                overrideBrowserslist: ["last 5 version"],
+            })
+        )
+        .pipe(mediagroup())
+        .pipe(rename({
+           extname: "styles.min.css.map"
+        }))
+        .pipe(csso())
+        .pipe(dest(path.build.css))
+        .pipe(gulpServer.stream());
 };
 exports.html = html;
 exports.styles = styles;
-exports.default = series(html, server);
+exports.default = series(html, gulpServer);
