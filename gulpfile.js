@@ -15,14 +15,14 @@ const rename = require("gulp-rename");
 
 const path = {
     build: {
-        css: "/" + "dist" + "/" + " css",
-        js: "/" + "dist" + "/" + "js",
-        html: "/" + "dist" + "/",
+        css: "dist" + "/" + " css",
+        js: "dist" + "/" + "js",
+        html: "dist" + "/",
     },
     dev: {
-        css: "/" + "src" + "/" + "scss",
-        js: "/" + "src" + "/" + "/" + "js",
-        html: "/" + "src" + "/",
+        css: "src" + "/" + "scss",
+        js: "src" + "/" + "/" + "js",
+        html: "src" + "/",
     },
 };
 const server = () => {
@@ -44,7 +44,7 @@ const styles = () => {
             // .pipe(concat("min.scss"))
             .pipe(scss())
             .pipe(rename("min.css"))
-            .pipe(csso())
+
             .pipe(dest(path.build.css))
     );
 };
