@@ -41,6 +41,7 @@ const html = () => {
 const js = () => {
     return src(["src/js/*.js"])
         .pipe(concat("scripts"))
+ 
         .pipe(
             rename({
                 extname: ".min.js.map",
@@ -89,6 +90,7 @@ const styles = () => {
         )
         .pipe(dest(path.build.css));
 };
+
 exports.html = html;
 exports.js = js;
 exports.jsAll = jsAll;
