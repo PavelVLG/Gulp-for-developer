@@ -41,8 +41,8 @@ const html = () => {
 const styles = () => {
     return src(["src/*/*.scss", "src/scss/modules/*.scss"])
         .pipe(plumber())
-        .pipe(scss({outputStyle:"expanded"})
-        .pipe(concat())
+        .pipe(concat("styles.scss"))
+        .pipe(scss({ outputStyle: "expanded" }))
         .pipe(
             autoprefixer({
                 grid: true,
@@ -51,9 +51,11 @@ const styles = () => {
             })
         )
         .pipe(mediagroup())
-        .pipe(rename({
-           extname: "styles.min.css.map"
-        }))
+        .pipe(
+            rename({
+                extname: "styles.min.css.map",
+            })
+        )
         .pipe(csso())
         .pipe(dest(path.build.css))
         .pipe(gulpServer.stream());
