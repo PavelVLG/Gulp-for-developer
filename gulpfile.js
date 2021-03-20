@@ -44,6 +44,7 @@ const html = () => {
 };
 const js = () => {
     return src(["src/js/*.js"])
+        .pipe(plumber())
         .pipe(concat("scripts"))
         .pipe(
             rename({
@@ -63,11 +64,12 @@ const js = () => {
 
 const jsLibr = () => {
     return src(["node_modules/jquery/dist/jquery.min.js"])
+        .pipe(plumber())
         .pipe(concat("vendor.min.js"))
         .pipe(uglify())
         .pipe(dest(path.build.js));
 };
-// "src/scss/*.scss",
+
 const styles = () => {
     return src("src/scss/*.scss")
         .pipe(plumber())
