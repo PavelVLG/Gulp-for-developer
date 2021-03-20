@@ -104,12 +104,19 @@ const styles = () => {
         .pipe(sync.stream());
 };
 const pictures = () => {
-    src(path.dev.pictures).pipe(dest(path.build.source));
+    return src(path.dev.pictures.png)
+        .pipe(dest(path.build.source))
+        .pipe(sync.stream());
 };
 const watching = () => {
     watch(path.dev.css, styles);
     watch(path.dev.js, js);
     watch(path.dev.html, html);
+    watch(path.dev.pictures.png, pictures);
+};
+
+const cleanDist = () => {
+    return del("dist");
 };
 
 exports.html = html;
@@ -119,4 +126,12 @@ exports.styles = styles;
 exports.watching = watching;
 exports.server = server;
 exports.pictures = pictures;
-exports.default = series(jsLibr, js, styles, html, parallel(server, watching));
+exports.clean = cleanDist;
+exports.default = series(
+    jsLibr,
+    js,
+    styles,
+    pictures,
+    html,
+    parallel(server, watching)
+);
