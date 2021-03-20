@@ -48,20 +48,18 @@ const html = () => {
 };
 const js = () => {
     return src(["src/js/*.js"])
+        .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(concat("scripts"))
+
         .pipe(
             rename({
-                extname: ".min.js.map",
+                extname: ".min.js",
             })
         )
-        .pipe(dest(path.build.js))
+
         .pipe(uglify())
-        .pipe(
-            rename({
-                extname: "",
-            })
-        )
+        .pipe(sourcemaps.write("."))
         .pipe(dest(path.build.js))
         .pipe(sync.stream());
 };
@@ -76,9 +74,12 @@ const jsLibr = () => {
 
 const styles = () => {
     return src("src/scss/*.scss")
+        .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(scss({ outputStyle: "expanded" }))
+
         .pipe(concat("styles.scss"))
+
         .pipe(
             autoprefixer({
                 grid: true,
@@ -89,17 +90,12 @@ const styles = () => {
         .pipe(mediagroup())
         .pipe(
             rename({
-                extname: ".min.css.map",
+                extname: ".min.css",
             })
         )
-        .pipe(dest(path.build.css))
         .pipe(csso())
         .pipe(mediagroup())
-        .pipe(
-            rename({
-                extname: "",
-            })
-        )
+        .pipe(sourcemaps.write("."))
         .pipe(dest(path.build.css))
         .pipe(sync.stream());
 };
