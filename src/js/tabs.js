@@ -1,25 +1,30 @@
-(function($) {
-    'use strict';
+(function ($) {
+    "use strict";
 
     /**
      * Табы
      */
     $.fn.tabs = function () {
         var $self = $(this);
-        var $tabHeaders = $self.find('.js-tab-header').filter(function (index, el) {
-            return $(el).parentsUntil($self).length === 1;
-        });
-        var $tabContent = $self.find('.js-tab-content').filter(function (index, el) {
-            return $(el).parentsUntil($self).length === 1;
-        });
+        var $tabHeaders = $self
+            .find(".js-tab-header")
+            .filter(function (index, el) {
+                return $(el).parentsUntil($self).length === 1;
+            });
+        var $tabContent = $self
+            .find(".js-tab-content")
+            .filter(function (index, el) {
+                return $(el).parentsUntil($self).length === 1;
+            });
 
         /**
          * Активация таба по его индексу
          * @param {Number} index - индекс таба, который нужно активировать
          */
+        console.log("И будетЖ;)");
         var selectTab = function (index) {
-            $tabHeaders.removeClass('active').eq(index).addClass('active');
-            $tabContent.removeClass('active').eq(index).addClass('active');
+            $tabHeaders.removeClass("active").eq(index).addClass("active");
+            $tabContent.removeClass("active").eq(index).addClass("active");
         };
 
         /**
@@ -29,7 +34,7 @@
             selectTab(0);
 
             // Обработка событий
-            $tabHeaders.on('click', function () {
+            $tabHeaders.on("click", function () {
                 selectTab($(this).index());
             });
         };
@@ -42,7 +47,7 @@
     };
 
     // Инициализируем табы на всех блоках с классом 'js-tabs'
-    $('.js-tabs').each(function () {
-        $(this).data('tabs', $(this).tabs());
+    $(".js-tabs").each(function () {
+        $(this).data("tabs", $(this).tabs());
     });
 })(jQuery);

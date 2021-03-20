@@ -13,7 +13,7 @@ const plumber = require("gulp-plumber");
 const sourcemaps = require("gulp-sourcemaps");
 const rename = require("gulp-rename");
 const mediagroup = require("gulp-group-css-media-queries");
-const gulpServer = () => {
+const server = () => {
     sync.init({
         notify: true,
         server: {
@@ -28,16 +28,19 @@ const path = {
         html: "dist" + "/",
     },
     dev: {
-        css: "src" + "/" + "scss",
-        js: "src" + "/" + "/" + "js",
+        css: "src" + "/" + "scss" + "/**" + "/*" + ".scss",
+        js: "src" + "/" + "js",
         html: "src" + "/",
     },
 };
 
 const html = () => {
-    return src(["src/*.html"])
-        .pipe(htmlmin({ collapseWhitespace: true }))
-        .pipe(dest(path.build.html));
+    return (
+        src(["src/*.html"])
+            // .pipe(htmlmin({ collapseWhitespace: true }))//
+            .pipe(dest(path.build.html))
+            .pipe(sync.stream())
+    );
 };
 const js = () => {
     return src(["src/js/*.js"])
@@ -54,26 +57,11 @@ const js = () => {
                 extname: "",
             })
         )
-        .pipe(dest(path.build.js));
-};
-const jsLibr = () => {
-    return src(["node_modules/jquery/dist/jquery.js"])
-        .pipe(concat("scripts"))
-        .pipe(
-            rename({
-                extname: ".min.js.map",
-            })
-        )
         .pipe(dest(path.build.js))
-        .pipe(uglify())
-        .pipe(
-            rename({
-                extname: "",
-            })
-        )
-        .pipe(dest(path.build.js));
+        .pipe(sync.stream());
 };
-const jsAll = () => {
+
+const jsLibr = () => {
     return src(["node_modules/jquery/dist/jquery.min.js"])
         .pipe(concat("vendor.min.js"))
         .pipe(uglify())
@@ -105,11 +93,19 @@ const styles = () => {
                 extname: "",
             })
         )
-        .pipe(dest(path.build.css));
+        .pipe(dest(path.build.css))
+        .pipe(sync.stream());
+};
+const watching = () => {
+    watch(path.dev.css, styles);
+    watch(path.dev.js, js);
+    watch(path.dev.html, html);
 };
 
 exports.html = html;
 exports.js = js;
-exports.jsAll = jsAll;
+exports.jsLibr = jsLibr;
 exports.styles = styles;
-exports.default = series(styles, js, html, gulpServer);
+exports.watching = watching;
+exports.server = server;
+exports.default = series(jsLibr, js, styles, html, parallel(server, watching));

@@ -7,11 +7,11 @@
     .tab-header {
         padding: 8px 20px;
         font-weight: bold;
-        transition: color .2s linear;
+        transition: color 0.2s linear;
 
-&.active {
-    box-shadow: 0 1px 0 #fff, 0 0 0 1px $c-border;
-}
+        &.active {
+            box-shadow: 0 1px 0 #fff, 0 0 0 1px $c-border;
+        }
 
         &:not(.active) {
             cursor: pointer;
@@ -33,4 +33,7 @@
             display: none;
         }
     }
+}
+body {
+    background-color: green;
 }
