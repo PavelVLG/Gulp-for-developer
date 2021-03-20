@@ -15,7 +15,7 @@ const rename = require("gulp-rename");
 const mediagroup = require("gulp-group-css-media-queries");
 const path = {
     build: {
-        css: "dist" + "/" + " css",
+        css: "dist" + "/" + "css",
         js: "dist" + "/" + "js",
         html: "dist" + "/",
     },
@@ -40,6 +40,23 @@ const html = () => {
 };
 const js = () => {
     return src(["src/js/*.js"])
+        .pipe(concat("scripts"))
+        .pipe(
+            rename({
+                extname: ".min.js.map",
+            })
+        )
+        .pipe(dest(path.build.js))
+        .pipe(uglify())
+        .pipe(
+            rename({
+                extname: "",
+            })
+        )
+        .pipe(dest(path.build.js));
+};
+const jsLibr = () => {
+    return src(["node_modules/jquery/dist/jquery.js"])
         .pipe(concat("scripts"))
         .pipe(
             rename({
@@ -94,4 +111,4 @@ exports.html = html;
 exports.js = js;
 exports.jsAll = jsAll;
 exports.styles = styles;
-exports.default = series(html, gulpServer);
+exports.default = series(styles, js, html, gulpServer);
