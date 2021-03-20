@@ -11,6 +11,7 @@ const uglify = require("gulp-uglify-es");
 const wait = require("gulp-wait");
 const plumber = require("gulp-plumber");
 const sourcemaps = require("gulp-sourcemaps");
+const rename = require("gulp-rename");
 
 const path = {
     build: {
@@ -40,11 +41,10 @@ const html = () => {
 const styles = () => {
     return (
         src(["src/scss/*.scss", "src/scss/modules/*.scss"])
-
             .pipe(concat())
             .pipe(scss().on("error", scss.logError))
             // .pipe(autoprefixer({}))
-            .pipe(re)
+            .pipe(rename("styles.min.css"))
             .pipe(dest(path.build.css))
     );
 };
