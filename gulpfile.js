@@ -39,7 +39,7 @@ const html = () => {
         .pipe(dest(path.build.html));
 };
 const styles = () => {
-    return src(["src/*/*.scss", "src/scss/modules/*.scss"])
+    return src(["src/scss/*.scss", "src/scss/modules/*.scss"])
         .pipe(plumber())
         .pipe(concat("styles.scss"))
         .pipe(scss({ outputStyle: "expanded" }))
@@ -57,8 +57,13 @@ const styles = () => {
             })
         )
         .pipe(csso())
+        .pipe(
+            rename({
+                extname: "styles.min.css",
+            })
+        )
         .pipe(dest(path.build.css))
-        .pipe(gulpServer.stream());
+        
 };
 exports.html = html;
 exports.styles = styles;
