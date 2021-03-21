@@ -9,7 +9,7 @@
     // });
     /****************heade********************/
     const head = $("header");
-    console.log("QWe");
+    console.log("QWesw");
     /****************heade********************/
     /***************Drag*******************/
     const drag = $("#drag-1");
@@ -20,13 +20,13 @@
         corX = e.offsetX;
         corY = e.offsetY;
     });
-    drag.on("drage", function (e) {
+    drag.on("drag", function (e) {
         // let x = e.pageX - corX + "px";
         // let y = e.pageY - corY + "px";
         let x = e.pageX + "px";
         let y = e.pageY + "px";
         drag.css({
-            transform: translate(x, y),
+            transform: `translateX(${x}) , translateX(${x}) `,
         });
         console.log("Бросили: x = " + e.pageX);
     });
@@ -78,5 +78,4 @@
     $(".js-tabs").each(function () {
         $(this).data("tabs", $(this).tabs());
     });
-    
 })(jQuery);
