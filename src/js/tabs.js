@@ -1,9 +1,13 @@
 (function ($) {
     "use strict";
+    console.log("q");
+    /***************Drag*******************/
+    $.fn.drag = function () {
+        $("#drag").draggable();
+    };
 
-    /**
-     * Табы
-     */
+    console.log(drag);
+    /***************Drag*******************/
     $.fn.tabs = function () {
         var $self = $(this);
         var $tabHeaders = $self
@@ -16,7 +20,7 @@
             .filter(function (index, el) {
                 return $(el).parentsUntil($self).length === 1;
             });
-
+        console.log("init");
         /**
          * Активация таба по его индексу
          * @param {Number} index - индекс таба, который нужно активировать
@@ -26,7 +30,7 @@
             $tabHeaders.removeClass("active").eq(index).addClass("active");
             $tabContent.removeClass("active").eq(index).addClass("active");
         };
-
+        console.log("mid");
         /**
          * Инициализаиця
          */
@@ -50,4 +54,5 @@
     $(".js-tabs").each(function () {
         $(this).data("tabs", $(this).tabs());
     });
+    console.log("pos");
 })(jQuery);
