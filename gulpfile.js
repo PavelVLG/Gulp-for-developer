@@ -36,6 +36,7 @@ const path = {
             img: "src" + "/" + "source" + "/" + "img" + "/*" + ".img",
             svg: "src" + "/" + "source" + "/" + "svg" + "/*" + ".svg",
             png: "src" + "/" + "source" + "/" + "png" + "/*" + ".png",
+            ui: "src" + "/" + "source" + "/" + "ui" + "/*" + ".js",
         },
     },
 };
@@ -66,7 +67,7 @@ const js = () => {
 };
 
 const jsLibr = () => {
-    return src(["node_modules/jquery/dist/jquery.min.js"] )
+    return src(["node_modules/jquery/dist/jquery.min.js", path.dev.pictures.ui])
         .pipe(plumber())
         .pipe(concat("vendor.min.js"))
         .pipe(uglify())

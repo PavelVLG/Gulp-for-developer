@@ -256,6 +256,10 @@ code {
   max-width: 200%;
 }
 
+.tab-img {
+  min-width: 200%;
+}
+
 @media (min-width:768px) {
   .wrap {
     padding: 0 calc((100% - 720px)/2);
