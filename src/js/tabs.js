@@ -2,7 +2,7 @@
     "use strict";
     console.log("20");
     /***************Drag*******************/
-    const drag = $("#drag");
+    const drag = $("#drag-1");
     let corX;
     let corY;
     drag.on("dragstart", function (e) {

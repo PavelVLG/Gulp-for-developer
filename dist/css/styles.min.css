@@ -245,6 +245,18 @@ code {
   overflow: hidden;
   min-width: 50vh;
   min-height: 50vh;
+  z-index: 1;
+}
+
+.tab-hiden .drag-1 {
+  position: relative;
+}
+
+.tab-hiden .drag-1 .drag-item {
+  z-index: -1;
+  overflow: hidden;
+  max-width: none;
+  background-color: #7cfc00;
 }
 
 @media (min-width:768px) {

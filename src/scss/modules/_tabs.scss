@@ -37,7 +37,31 @@
 .tab-hiden {
     overflow: hidden;
     min-width: 50vh;
-    min-height:50vh;
-
-
+    min-height: 50vh;
+    z-index: 1;
+    .drag-1 {
+        position: relative;
+        .drag-item {
+            z-index: -1;
+            overflow: hidden;
+            max-width: none;
+            background-color: lawngreen;
+        }
+    }
 }
+
+// @media (max-width: $mobile-max) {
+//     .tab-header-wrap {
+//         display: flex;
+//         flex-direction: column;
+//         max-width: 100vw;
+//         li {
+//             margin-bottom: 5px;
+//             border-bottom: 3px solid inherit;
+//             .active{
+//                 background: #000;
+//             }
+//         }
+//     }
+
+// }
