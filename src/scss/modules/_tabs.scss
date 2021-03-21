@@ -33,11 +33,9 @@
             display: none;
         }
     }
-    .tab-hiden {
-        overflow: hidden;
-        .drag {
-            max-width: none;
-            width: 200%;
-        }
-    }
+}
+.tab-hiden {
+    overflow: hidden;
+    min-width: 100%;
+
 }

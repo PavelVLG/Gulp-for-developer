@@ -1,17 +1,25 @@
 (function ($) {
     "use strict";
-    console.log("2");
+    console.log("5");
     /***************Drag*******************/
-    $(function () {
-        $("#draggable").draggable();
+    const drag = $("#drag-item");
+    drag.on("dragstart", function (e) {
+        // e.dataTransfer.setData("text/html", "dragstart");
+        console.log("начали тащить: x = " + e.pageX + " ; y = " + e.pageY);
     });
-    const aim = $("aim");
-    $(aim).on('click', function(e) {
+    // drag.on("drag", function (e) {
+    //     drag.css("background-color", "yellow");
+    //     console.log("Бросили: x = " + e.pageX + " ; y = " + e.pageY);
+    // });
+    drag.on("dragend", function (e) {
+        drag.css({
+            position: "absolute",
+            top: e.pageY + "px",
+            left: e.pageX + "px",
+        });
+        console.log("Бросили: x = " + e.pageX);
+    });
 
-        console.log('Нажата кнопка: ' + e.target); //1 - левая кнопка, 2 - средняя кнопка, 3 - правая
-        console.log('Координаты курсора: x = ' + e.pageX + ' ; y = ' + e.pageY);
-      });
-    console.log('aim');
     /***************Drag*******************/
     $.fn.tabs = function () {
         var $self = $(this);
