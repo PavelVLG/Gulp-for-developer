@@ -11,12 +11,14 @@
     // $(".main-content").on("click", function () {
     //     $(".tabs").css({ display: "block" });
     // });
-    $(function () {
-        $("#accordion").accordion();
-    });
+    // $(function () {
+    //     $("#accordion").accordion();
+    // });
 
     $(window).on("resize", function (e) {
-        console.log("размеры:", e.target.value);
+        if (e.target.innerWidth <= 768) {
+            alert("1000");
+        }
     });
 
     /****************header********************/
