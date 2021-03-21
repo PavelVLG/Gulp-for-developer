@@ -1,12 +1,11 @@
 (function ($) {
     "use strict";
-    console.log("q");
+    console.log("2");
     /***************Drag*******************/
-    $.fn.drag = function () {
-        $("#drag").draggable();
-    };
+    $( function() {
+        $( "#draggable" ).draggable();
+      } );
 
-    console.log(drag);
     /***************Drag*******************/
     $.fn.tabs = function () {
         var $self = $(this);
