@@ -14,6 +14,7 @@ const mediagroup = require("gulp-group-css-media-queries");
 
 const server = () => {
     sync.init({
+        UI: 3000,
         notify: true,
         server: {
             baseDir: "dist",
