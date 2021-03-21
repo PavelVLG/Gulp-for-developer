@@ -7,10 +7,22 @@
     // menu.on("click", function () {
     //     tabs.css({ display: "block" });
     // });
-    /****************heade********************/
+
+
+
+
+
+
+
+
+
+
+
+
+    /****************header********************/
     const head = $("header");
-    console.log("QWesw");
-    /****************heade********************/
+
+    
     /***************Drag*******************/
     const drag = $("#drag-1");
     let corX;
@@ -19,18 +31,18 @@
         // e.dataTransfer.setData("text/html", "dragstart");
         corX = e.offsetX;
         corY = e.offsetY;
+        console.log(corY);
     });
     drag.on("drag", function (e) {
         // let x = e.pageX - corX + "px";
         // let y = e.pageY - corY + "px";
-        let x = e.pageX + "px";
-        let y = e.pageY + "px";
-        drag.css({
-            transform: `translateX(${x}) , translateX(${x}) `,
-        });
-        console.log("Бросили: x = " + e.pageX);
-    });
 
+        let y = e.pageY - corY + "px";
+        drag.css({
+            transform: `translateY(${y}) `,
+        });
+    });
+    console.log("6");
     /***************Drag*******************/
     $.fn.tabs = function () {
         var $self = $(this);
