@@ -66,7 +66,7 @@ const js = () => {
 };
 
 const jsLibr = () => {
-    return src(["node_modules/jquery/dist/jquery.min.js"])
+    return src(["node_modules/jquery/dist/jquery.min.js"] )
         .pipe(plumber())
         .pipe(concat("vendor.min.js"))
         .pipe(uglify())

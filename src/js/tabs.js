@@ -1,48 +1,35 @@
 (function ($) {
     "use strict";
+
+    /***************UI******************/
+
+    $( function() {
+        $( "#draggable" ).draggable();
+      } );
     /******************menuAdaptive**************/
-    // const menu = $(".main-content");
-    // const tabs = $(".tabs");
 
-    // menu.on("click", function () {
-    //     tabs.css({ display: "block" });
+    // $(".main-content").on("click", function () {
+    //     $(".tabs").css({ display: "block" });
     // });
-
-
-
-
-
-
-
-
-
-
-
 
     /****************header********************/
     const head = $("header");
 
-    
     /***************Drag*******************/
     const drag = $("#drag-1");
     let corX;
     let corY;
     drag.on("dragstart", function (e) {
-        // e.dataTransfer.setData("text/html", "dragstart");
         corX = e.offsetX;
         corY = e.offsetY;
-        console.log(corY);
     });
     drag.on("drag", function (e) {
-        // let x = e.pageX - corX + "px";
-        // let y = e.pageY - corY + "px";
-
         let y = e.pageY - corY + "px";
         drag.css({
             transform: `translateY(${y}) `,
         });
     });
-    console.log("6");
+
     /***************Drag*******************/
     $.fn.tabs = function () {
         var $self = $(this);
