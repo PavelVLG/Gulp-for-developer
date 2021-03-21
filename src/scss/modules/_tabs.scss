@@ -33,7 +33,11 @@
             display: none;
         }
     }
-}
-.tab-content {
-    overflow: hidden;
+    .tab-hiden {
+        overflow: hidden;
+        .drag {
+            max-width: none;
+            width: 200%;
+        }
+    }
 }

@@ -241,8 +241,13 @@ code {
   display: none;
 }
 
-.tab-content {
+.tabs .tab-hiden {
   overflow: hidden;
+}
+
+.tabs .tab-hiden .drag {
+  max-width: none;
+  width: 200%;
 }
 
 @media (min-width:768px) {
