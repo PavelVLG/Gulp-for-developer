@@ -1,21 +1,21 @@
 (function ($) {
     "use strict";
-    console.log("5");
+    console.log("20");
     /***************Drag*******************/
-    const drag = $("#drag-item");
+    const drag = $("#drag");
+    let corX;
+    let corY;
     drag.on("dragstart", function (e) {
         // e.dataTransfer.setData("text/html", "dragstart");
-        console.log("начали тащить: x = " + e.pageX + " ; y = " + e.pageY);
+        corX = e.offsetX;
+        corY = e.offsetY;
+        console.log("начали : x = " + e.pageX + " ; y = " + e.pageY);
     });
-    // drag.on("drag", function (e) {
-    //     drag.css("background-color", "yellow");
-    //     console.log("Бросили: x = " + e.pageX + " ; y = " + e.pageY);
-    // });
     drag.on("dragend", function (e) {
         drag.css({
             position: "absolute",
-            top: e.pageY + "px",
-            left: e.pageX + "px",
+            top: e.pageY - corY + "px",
+            left: e.pageX - corX + "px",
         });
         console.log("Бросили: x = " + e.pageX);
     });
