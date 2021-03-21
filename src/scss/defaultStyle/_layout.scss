@@ -156,3 +156,23 @@ code {
     background-color: $c-bg-gray;
     border-radius: 0.125em;
 }
+@media (max-width: $mobile-max) {
+    .main-content {
+        h1 {
+            border: 1px solid $c-border;
+            border-radius: 3px;
+            text-align: center;
+            background-color: $c-highlight;
+        }
+        h1:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+            color: white;
+        }
+        .tab-hiden {
+            max-width: 90vw;
+            .drag-1 .drag-2 {
+                display: none;
+            }
+        }
+    }
+}

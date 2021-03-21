@@ -1,12 +1,14 @@
 (function ($) {
     "use strict";
-    console.log("22");
-
+    /******************menuAdaptive**************/
+    // const menu = $(".main-content");
+    // const tabs = $(".tabs");
+    // tabs.css({ display: "none" });
+    // menu.on("click", function () {
+    //     tabs.css({ display: "block" });
+    // });
     /****************heade********************/
     const head = $("header");
-    head.on("scroll", function () {
-        console.log("ok");
-    });
 
     /****************heade********************/
     /***************Drag*******************/
@@ -20,10 +22,10 @@
         console.log("начали : x = " + e.pageX + " ; y = " + e.pageY);
     });
     drag.on("dragend", function (e) {
+        let x = e.pageX - corX + "px";
+        let y = e.pageY - corY + "px";
         drag.css({
-            position: "absolute",
-            top: e.pageY - corY + "px",
-            left: e.pageX - corX + "px",
+            transform: translate(x, y),
         });
         console.log("Бросили: x = " + e.pageX);
     });
@@ -75,5 +77,5 @@
     $(".js-tabs").each(function () {
         $(this).data("tabs", $(this).tabs());
     });
-    console.log("pos");
+    console.log("sos");
 })(jQuery);

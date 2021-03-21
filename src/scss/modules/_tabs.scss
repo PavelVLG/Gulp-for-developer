@@ -41,7 +41,10 @@
     z-index: 1;
     .drag-1 {
         position: relative;
+        transform: translate(20px, 200px);
         .drag-item {
+
+
             z-index: -1;
             overflow: hidden;
             max-width: none;
@@ -58,10 +61,9 @@
         li {
             margin-bottom: 5px;
             border-bottom: 3px solid inherit;
-            .active{
+            .active {
                 background: #000;
             }
         }
     }
-
 }
