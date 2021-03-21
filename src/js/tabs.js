@@ -3,34 +3,24 @@
 
     /***************UI******************/
 
-    $( function() {
-        $( "#draggable" ).draggable();
-      } );
+    $(function () {
+        $("#draggable").draggable();
+    });
     /******************menuAdaptive**************/
 
     // $(".main-content").on("click", function () {
     //     $(".tabs").css({ display: "block" });
     // });
+    $(function () {
+        $("#accordion").accordion();
+    });
+
+    $(window).on("resize", function (e) {
+        console.log("размеры:", e.target.value);
+    });
 
     /****************header********************/
-    const head = $("header");
 
-    /***************Drag*******************/
-    const drag = $("#drag-1");
-    let corX;
-    let corY;
-    drag.on("dragstart", function (e) {
-        corX = e.offsetX;
-        corY = e.offsetY;
-    });
-    drag.on("drag", function (e) {
-        let y = e.pageY - corY + "px";
-        drag.css({
-            transform: `translateY(${y}) `,
-        });
-    });
-
-    /***************Drag*******************/
     $.fn.tabs = function () {
         var $self = $(this);
         var $tabHeaders = $self
