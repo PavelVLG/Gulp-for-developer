@@ -34,14 +34,6 @@
         }
     }
 }
-
-.drag-content {
+.tab-content {
     overflow: hidden;
-    width: 100%;
-    height: 80vh;
-    position: relative;
-    .drag {
-        position: absolute;
-        max-width: none;
-    }
 }
