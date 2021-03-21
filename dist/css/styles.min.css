@@ -250,16 +250,10 @@ code {
 
 .tab-hiden .drag-1 {
   position: relative;
-  -webkit-transform: translate(20px,200px);
-  -ms-transform: translate(20px,200px);
-  transform: translate(20px,200px);
 }
 
 .tab-hiden .drag-1 .drag-item {
-  z-index: -1;
-  overflow: hidden;
-  max-width: none;
-  background-color: #7cfc00;
+  max-width: 200%;
 }
 
 @media (min-width:768px) {
@@ -342,6 +336,10 @@ code {
 
   .main-content .tab-hiden .drag-1 .drag-2 {
     display: none;
+  }
+
+  .main-content .tabs {
+    display: "none";
   }
 
   .tab-header-wrap {

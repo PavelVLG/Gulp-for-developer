@@ -34,6 +34,7 @@
         }
     }
 }
+/******************/
 .tab-hiden {
     overflow: hidden;
     min-width: 50vh;
@@ -41,18 +42,13 @@
     z-index: 1;
     .drag-1 {
         position: relative;
-        transform: translate(20px, 200px);
+        // transform: translate(20px, 200px);
         .drag-item {
-
-
-            z-index: -1;
-            overflow: hidden;
-            max-width: none;
-            background-color: lawngreen;
+            max-width: 200%;
         }
     }
 }
-
+/******************/
 @media (max-width: $mobile-max) {
     .tab-header-wrap {
         display: flex;

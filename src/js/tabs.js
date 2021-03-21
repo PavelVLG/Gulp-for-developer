@@ -3,13 +3,13 @@
     /******************menuAdaptive**************/
     // const menu = $(".main-content");
     // const tabs = $(".tabs");
-    // tabs.css({ display: "none" });
+
     // menu.on("click", function () {
     //     tabs.css({ display: "block" });
     // });
     /****************heade********************/
     const head = $("header");
-
+    console.log("QWe");
     /****************heade********************/
     /***************Drag*******************/
     const drag = $("#drag-1");
@@ -19,11 +19,12 @@
         // e.dataTransfer.setData("text/html", "dragstart");
         corX = e.offsetX;
         corY = e.offsetY;
-        console.log("начали : x = " + e.pageX + " ; y = " + e.pageY);
     });
-    drag.on("dragend", function (e) {
-        let x = e.pageX - corX + "px";
-        let y = e.pageY - corY + "px";
+    drag.on("drage", function (e) {
+        // let x = e.pageX - corX + "px";
+        // let y = e.pageY - corY + "px";
+        let x = e.pageX + "px";
+        let y = e.pageY + "px";
         drag.css({
             transform: translate(x, y),
         });
@@ -77,5 +78,5 @@
     $(".js-tabs").each(function () {
         $(this).data("tabs", $(this).tabs());
     });
-    console.log("sos");
+    
 })(jQuery);
