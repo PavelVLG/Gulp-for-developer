@@ -45,7 +45,6 @@ const html = () => {
         src(["src/*.html"])
             // .pipe(htmlmin({ collapseWhitespace: true }))//
             .pipe(dest(path.build.html))
-            .pipe(sync.stream())
     );
 };
 const js = () => {
@@ -102,14 +101,12 @@ const styles = () => {
         .pipe(sync.stream());
 };
 const pictures = () => {
-    return src(path.dev.pictures.png)
-        .pipe(dest(path.build.source))
-        .pipe(sync.stream());
+    return src(path.dev.pictures.png).pipe(dest(path.build.source));
 };
 const watching = () => {
     watch(path.dev.css, styles);
     watch(path.dev.js, js);
-    watch(path.dev.html, html);
+    watch(path.dev.html).on("change", sync.reload);
     watch(path.dev.pictures.png, pictures);
 };
 
@@ -125,11 +122,12 @@ exports.watching = watching;
 exports.server = server;
 exports.pictures = pictures;
 exports.clean = cleanDist;
+
 exports.default = series(
+    html,
+    styles,
     jsLibr,
     js,
-    styles,
     pictures,
-    html,
     parallel(server, watching)
 );

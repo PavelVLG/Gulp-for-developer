@@ -319,6 +319,26 @@ code {
     margin-top: 20px;
     width: 100%;
   }
+
+  .tab-header-wrap {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    max-width: 100vw;
+  }
+
+  .tab-header-wrap li {
+    margin-bottom: 5px;
+    border-bottom: 3px solid inherit;
+  }
+
+  .tab-header-wrap li .active {
+    background: #000;
+  }
 }
 
 @media (min-width:768px) and (max-width:1279px) {

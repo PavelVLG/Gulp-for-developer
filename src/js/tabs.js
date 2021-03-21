@@ -1,6 +1,14 @@
 (function ($) {
     "use strict";
-    console.log("20");
+    console.log("22");
+
+    /****************heade********************/
+    const head = $("header");
+    head.on("scroll", function () {
+        console.log("ok");
+    });
+
+    /****************heade********************/
     /***************Drag*******************/
     const drag = $("#drag-1");
     let corX;

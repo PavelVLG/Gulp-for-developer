@@ -50,18 +50,18 @@
     }
 }
 
-// @media (max-width: $mobile-max) {
-//     .tab-header-wrap {
-//         display: flex;
-//         flex-direction: column;
-//         max-width: 100vw;
-//         li {
-//             margin-bottom: 5px;
-//             border-bottom: 3px solid inherit;
-//             .active{
-//                 background: #000;
-//             }
-//         }
-//     }
+@media (max-width: $mobile-max) {
+    .tab-header-wrap {
+        display: flex;
+        flex-direction: column;
+        max-width: 100vw;
+        li {
+            margin-bottom: 5px;
+            border-bottom: 3px solid inherit;
+            .active{
+                background: #000;
+            }
+        }
+    }
 
-// }
+}
