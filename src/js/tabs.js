@@ -1,27 +1,20 @@
 (function ($) {
     "use strict";
 
-    /***************UI******************/
-
     $(function () {
         $("#draggable").draggable();
     });
-    /******************menuAdaptive**************/
-
-    // $(".main-content").on("click", function () {
-    //     $(".tabs").css({ display: "block" });
-    // });
-    // $(function () {
-    //     $("#accordion").accordion();
-    // });
-
+    $(function () {
+        $("#accordion").accordion();
+    });
     $(window).on("resize", function (e) {
         if (e.target.innerWidth <= 768) {
-            alert("1000");
+            $(".tab-header-wrap").addClass("accordion");
+        }
+        if (e.target.innerWidth >= 768) {
+            $(".tab-header-wrap").removeClass("accordion");
         }
     });
-
-    /****************header********************/
 
     $.fn.tabs = function () {
         var $self = $(this);
