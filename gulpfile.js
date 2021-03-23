@@ -44,7 +44,7 @@ const path = {
 const html = () => {
     return (
         src(path.dev.html)
-            // .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
+            .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
             .pipe(dest(path.build.html))
     );
 };
