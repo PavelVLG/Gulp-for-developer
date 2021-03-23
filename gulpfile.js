@@ -32,7 +32,7 @@ const path = {
         css: "src" + "/" + "scss" + "/**" + "/*" + ".scss",
         js: "src" + "/" + "js",
         html: "src" + "/",
-        pictures: {
+        source: {
             img: "src" + "/" + "source" + "/" + "img" + "/*" + ".img",
             svg: "src" + "/" + "source" + "/" + "svg" + "/*" + ".svg",
             png: "src" + "/" + "source" + "/" + "png" + "/*" + ".png",
@@ -67,7 +67,7 @@ const js = () => {
 };
 
 const jsLibr = () => {
-    return src(["node_modules/jquery/dist/jquery.min.js", path.dev.pictures.ui])
+    return src([""])
         .pipe(plumber())
         .pipe(concat("vendor.min.js"))
         .pipe(uglify())
@@ -101,14 +101,14 @@ const styles = () => {
         .pipe(dest(path.build.css))
         .pipe(sync.stream());
 };
-const pictures = () => {
-    return src(path.dev.pictures.png).pipe(dest(path.build.source));
+const source = () => {
+    return src(path.dev.source.png).pipe(dest(path.build.source));
 };
 const watching = () => {
     watch(path.dev.css, styles);
     watch(path.dev.js, js);
     watch(path.dev.html).on("change", sync.reload);
-    watch(path.dev.pictures.png, pictures);
+    watch(path.dev.source.png, source);
 };
 
 const cleanDist = () => {
@@ -121,14 +121,14 @@ exports.jsLibr = jsLibr;
 exports.styles = styles;
 exports.watching = watching;
 exports.server = server;
-exports.pictures = pictures;
+exports.source = source;
 exports.clean = cleanDist;
 
 exports.default = series(
     html,
     styles,
-    jsLibr,
+    // jsLibr,
     js,
-    pictures,
+    source,
     parallel(server, watching)
 );

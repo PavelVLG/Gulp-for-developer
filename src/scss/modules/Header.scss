@@ -6,4 +6,20 @@
 }
 
 .header {
+    display: flex;
+    justify-content: center;
+    background-color: $c-bg-main;
+    min-width: 400px;
+    min-height: 50px;
+    border-radius: 35%;
+    text-align: center;
+    text-align: center;
+    box-shadow: 8px 5px 22px 22px rgba(0, 21, 86, 0.377);
+
+    h1 {
+        margin: 0 auto;
+        text-align: initial;
+        font-size: 60px;
+        font-family: fantasy;
+    }
 }
