@@ -11,32 +11,34 @@ const plumber = require("gulp-plumber"); // показывает ошибки
 const sourcemaps = require("gulp-sourcemaps"); // делает map
 const rename = require("gulp-rename"); // переименовывает
 const mediagroup = require("gulp-group-css-media-queries"); // собирает медиа запросы и обединяет
-
+const buildFolder = "dist"; // папка сбора и запуска сервера
+const developerFolder = "src"; // папка разработки
 const server = () => {
     sync.init({
         UI: 3000,
-        notify: true,
+        notify: false,
         server: {
-            baseDir: "dist",
+            baseDir: buildFolder,
         },
     });
 };
+
 const path = {
     build: {
-        css: "dist" + "/" + "css",
-        js: "dist" + "/" + "js",
-        html: "dist" + "/",
-        source: "dist" + "/" + "source",
+        css: buildFolder + "/" + "css",
+        js: buildFolder + "/" + "js",
+        html: buildFolder + "/",
+        source: buildFolder + "/" + "source",
     },
     dev: {
-        scss: "src" + "/" + "scss" + "/*" + ".scss",
-        js: "src" + "/" + "js" + "/*" + ".js",
-        html: "src" + "/" + "index.html",
+        scss: developerFolder + "/" + "scss" + "/*" + ".scss",
+        js: developerFolder + "/" + "js" + "/*" + ".js",
+        html: developerFolder + "/" + "index.html",
         source: {
-            img: "src" + "/" + "source" + "/" + "img" + "/*" + ".img",
-            svg: "src" + "/" + "source" + "/" + "svg" + "/*" + ".svg",
-            png: "src" + "/" + "source" + "/" + "png" + "/*" + ".png",
-            ui: "src" + "/" + "source" + "/" + "ui" + "/*" + ".js",
+            img: developerFolder + "/" + "source" + "/" + "img" + "/*" + ".img",
+            svg: developerFolder + "/" + "source" + "/" + "svg" + "/*" + ".svg",
+            png: developerFolder + "/" + "source" + "/" + "png" + "/*" + ".png",
+            ui: developerFolder + "/" + "source" + "/" + "ui" + "/*" + ".js",
         },
     },
 };
