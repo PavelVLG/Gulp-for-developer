@@ -30,8 +30,8 @@ const path = {
     },
     dev: {
         css: "src" + "/" + "scss" + "/**" + "/*" + ".scss",
-        js: "src" + "/" + "js",
-        html: "src" + "/",
+        js: "src" + "/" + "js" + "/*" + ".js",
+        html: "src" + "/" + "index.html",
         source: {
             img: "src" + "/" + "source" + "/" + "img" + "/*" + ".img",
             svg: "src" + "/" + "source" + "/" + "svg" + "/*" + ".svg",
@@ -40,16 +40,17 @@ const path = {
         },
     },
 };
-
+/***************************************************************/
 const html = () => {
     return (
-        src(["src/*.html"])
-            // .pipe(htmlmin({ collapseWhitespace: true }))//
+        src(path.dev.html)
+            // .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
             .pipe(dest(path.build.html))
     );
 };
+/*****************************************************************/
 const js = () => {
-    return src(["src/js/*.js"])
+    return src(path.dev.js)
         .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(concat("index"))
