@@ -52,7 +52,7 @@ const js = () => {
     return src(["src/js/*.js"])
         .pipe(sourcemaps.init())
         .pipe(plumber())
-        .pipe(concat("scripts"))
+        .pipe(concat("index"))
 
         .pipe(
             rename({
