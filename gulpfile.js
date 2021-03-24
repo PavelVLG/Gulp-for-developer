@@ -12,6 +12,7 @@ const sourcemaps = require("gulp-sourcemaps"); // делает map
 const rename = require("gulp-rename"); // переименовывает
 const mediagroup = require("gulp-group-css-media-queries"); // собирает медиа запросы и обединяет
 const include = require("gulp-file-include");
+const imagemin = require("gulp-imagemin"); // сжатие картинки
 const buildFolder = "dist"; // папка сбора и запуска сервера
 const developerFolder = "src"; // папка разработки
 
@@ -43,11 +44,11 @@ const path = {
             img: developerFolder + "/" + "source" + "/" + "img" + "/*" + ".img",
             svg: developerFolder + "/" + "source" + "/" + "svg" + "/*" + ".svg",
             png: developerFolder + "/" + "source" + "/" + "png" + "/*" + ".png",
-            ui: developerFolder + "/" + "source" + "/" + "ui" + "/*" + ".js",
         },
+        UI: developerFolder + "/" + "source" + "/" + "ui" + "/*" + ".js",
     },
 };
-/***************************************************************/
+/*****************************HTML**********************************/
 const html = () => {
     return (
         src(path.dev.html)
@@ -56,14 +57,13 @@ const html = () => {
             .pipe(dest(path.build.html))
     );
 };
-/*****************************************************************/
+/*****************************JavaScript************************************/
 const js = () => {
     return src(path.dev.js)
         .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(include())
         .pipe(concat("index"))
-
         .pipe(
             rename({
                 extname: ".min.js",
@@ -75,21 +75,20 @@ const js = () => {
         .pipe(dest(path.build.js))
         .pipe(sync.stream());
 };
-
+/***********************сторонние библиотеки*************************/
 const jsLibr = () => {
-    return src(path.dev.source.ui)
+    return src(path.dev.UI)
         .pipe(plumber())
-        .pipe(concat("vendor.min.js"))
+        .pipe(concat("vendor.min.js")) // файл для подключения сторонних библиотек,по умолчанию отключен.
         .pipe(uglify())
         .pipe(dest(path.build.js));
 };
-
+/************************scss в css**********************************/
 const styles = () => {
     return src(path.dev.scss)
         .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(scss({ outputStyle: "expanded" }))
-
         .pipe(concat("styles.scss"))
 
         .pipe(
@@ -112,14 +111,26 @@ const styles = () => {
         .pipe(sync.stream());
 };
 const source = () => {
-    return src(path.dev.source.png).pipe(dest(path.build.source));
+    return src([path.dev.source.png, path.dev.source.svg, path.dev.source.img])
+        .pipe(
+            imagemin({
+                progressive: true,
+                svgoPlugins: [{ removeViewBox: false }],
+                interlaced: true,
+                optimizationLevel: 3,
+            })
+        )
+        .pipe(dest(path.build.source));
 };
 const watching = () => {
     watch(path.dev.scss, styles);
     watch(path.dev.js, js);
     watch(path.dev.html[0]).on("change", sync.reload);
     watch(path.dev.html[0], html);
-    watch(path.dev.source.png, source);
+    watch(
+        [path.dev.source.png, path.dev.source.svg, path.dev.source.img],
+        source
+    );
 };
 
 const cleanDist = () => {
