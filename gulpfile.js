@@ -37,7 +37,7 @@ const path = {
         js: developerFolder + "/" + "js" + "/*" + ".js",
         html: [
             developerFolder + "/*" + ".html",
-            "!" + developerFolder + "/_*" + ".html"
+            "!" + developerFolder + "/_*" + ".html",
         ],
         source: {
             img: developerFolder + "/" + "source" + "/" + "img" + "/*" + ".img",
@@ -49,10 +49,12 @@ const path = {
 };
 /***************************************************************/
 const html = () => {
-    return src(path.dev.html)
-        .pipe(include())
-        // .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
-        .pipe(dest(path.build.html));
+    return (
+        src(path.dev.html)
+            .pipe(include())
+            // .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
+            .pipe(dest(path.build.html))
+    );
 };
 /*****************************************************************/
 const js = () => {
@@ -115,7 +117,8 @@ const source = () => {
 const watching = () => {
     watch(path.dev.scss, styles);
     watch(path.dev.js, js);
-    watch(path.dev.html).on("change", sync.reload);
+    watch(path.dev.html[0]).on("change", sync.reload);
+    watch(path.dev.html[0], html);
     watch(path.dev.source.png, source);
 };
 
