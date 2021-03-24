@@ -21,17 +21,17 @@ const fonter = require("gulp-fonter"); // преобразует шрифты
 const buildFolder = "dist"; // папка сбора и запуска сервера
 const developerFolder = "src"; // папка разработки
 
-const server = () => {
+const server = () => { // запускает сервер. ON
     sync.init({
-        UI: 3000,
-        notify: false,
+        UI: 3000, // порт по умолчанию
+        notify: true, // показывает обновление на станице("черное окошко") ON
         server: {
-            baseDir: buildFolder,
+            baseDir: buildFolder, // папка подключения сервера
         },
     });
 };
 
-const path = {
+const path = {  // описание путей
     build: {
         css: buildFolder + "/" + "css",
         fonts: buildFolder + "/" + "fonts",
@@ -56,46 +56,43 @@ const path = {
     },
 };
 /*****************************HTML**********************************/
-const html = () => {
-    return (
-        src(path.dev.html)
-            .pipe(include())
-            // .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
-            .pipe(dest(path.build.html))
-    );
+const html = () => { //ON
+    return src(path.dev.html)
+        .pipe(include()) // собирает html файлы
+        .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
+        .pipe(dest(path.build.html)); // выкладывает в эту папку результат
 };
 /*****************************JavaScript************************************/
-const js = () => {
+const js = () => { // ON
     return src(path.dev.js)
-        .pipe(sourcemaps.init())
-        .pipe(plumber())
-        .pipe(include())
-        .pipe(concat("index"))
+        .pipe(sourcemaps.init()) // делает карту
+        .pipe(plumber()) // отслеживает ошибки
+        .pipe(include()) // обьединяет файлы импорты
+        .pipe(concat("index")) // обьеденяет и переименовывает
         .pipe(
             rename({
                 extname: ".min.js",
             })
         )
-
-        .pipe(uglify())
-        .pipe(sourcemaps.write("."))
-        .pipe(dest(path.build.js))
+        .pipe(uglify())// сжимает
+        .pipe(sourcemaps.write("."))// дает js.min.js.map
+        .pipe(dest(path.build.js)) //выкладывает в эту папку результат
         .pipe(sync.stream());
 };
 /***********************сторонние библиотеки*************************/
-const jsLibr = () => {
+const jsLibr = () => { // OFF
     return src(path.dev.UI)
         .pipe(plumber())
-        .pipe(concat("vendor.min.js")) // файл для подключения сторонних библиотек,по умолчанию отключен.
+        .pipe(concat("vendor.min.js")) // файл для подключения сторонних библиотек
         .pipe(uglify())
         .pipe(dest(path.build.js));
 };
 /************************scss в css**********************************/
-const styles = () => {
+const styles = () => { // ON
     return src(path.dev.scss)
         .pipe(sourcemaps.init())
         .pipe(plumber())
-        .pipe(scss({ outputStyle: "expanded" }))
+        .pipe(scss({ outputStyle: "expanded" })) //scss в css
         .pipe(concat("styles.scss"))
 
         .pipe(
@@ -104,15 +101,15 @@ const styles = () => {
                 cascade: false,
                 overrideBrowserslist: ["last 5 version"],
             })
-        )
+        ) // ставит префиксы для браузеров
         .pipe(mediagroup())
         .pipe(
             rename({
                 extname: ".min.css",
             })
         )
-        .pipe(csso())
-        .pipe(mediagroup())
+        .pipe(csso())//сжимает css
+        .pipe(mediagroup())// jобединяет меди запросы
         .pipe(sourcemaps.write("."))
         .pipe(dest(path.build.css))
         .pipe(sync.stream());
@@ -120,7 +117,7 @@ const styles = () => {
 
 /****************fonts****************************/
 
-const fonts = () => {
+const fonts = () => { // выводит в билд шрифты ON
     // ttf in build
     src(path.dev.fonts + ".ttf")
         .pipe(ttf())
@@ -130,8 +127,7 @@ const fonts = () => {
         .pipe(dest(path.build.fonts));
 };
 
-const otfttf = () => {
-    // otf in ttf
+const otfttf = () => {// из otf в ttf, складывает в разработку OFF
     src(path.dev.fonts + ".otf")
         .pipe(
             fonter({
@@ -141,9 +137,8 @@ const otfttf = () => {
         .pipe(dest(path.dev.fonts));
 };
 
-
 /****************************img***************************/
-const source = () => {
+const source = () => { //переносит и сжимает картинки ON
     return src([path.dev.source.png, path.dev.source.svg, path.dev.source.img])
         .pipe(
             imagemin({
@@ -166,7 +161,7 @@ const watching = () => {
     );
 };
 
-const cleanDist = () => {
+const cleanDist = () => { // удаляет папку dist
     return del(buildFolder);
 };
 
