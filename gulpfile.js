@@ -52,7 +52,7 @@ const path = {
             png: developerFolder + "/" + "source" + "/" + "png" + "/*" + ".png",
         },
         UI: developerFolder + "/" + "source" + "/" + "ui" + "/*" + ".js",
-        fonts: developerFolder + "/" + "scss" + "/" + "fonts" + "/*",
+        fonts: developerFolder + "/" + "fonts" + "/*",
     },
 };
 /*****************************HTML**********************************/
@@ -119,15 +119,18 @@ const styles = () => {
 };
 
 /****************fonts****************************/
+
 const fonts = () => {
-    src([path.dev.fonts + "/*" + ".ttf", path.dev.fonts + "/*" + ".ttf2"])
+    src(path.dev.fonts + ".ttf")
         .pipe(ttf())
-        .pipe(path.build.fonts);
-    return src(path.dev.fonts).pipe(ttf2()).pipe(dest(path.build.fonts));
+        .pipe(dest(path.build.fonts));
+    return src(path.dev.fonts + ".ttf2")
+        .pipe(ttf2())
+        .pipe(dest(path.build.fonts));
 };
 
-const fonter = () => {
-    src(path.dev.fonts + "/*" + ".otf")
+const otfttf = () => {
+    src(path.dev.fonts + ".otf")
         .pipe(
             fonter({
                 formats: ["ttf"],
@@ -135,6 +138,7 @@ const fonter = () => {
         )
         .pipe(dest(path.dev.fonts));
 };
+
 /****************************img***************************/
 const source = () => {
     return src([path.dev.source.png, path.dev.source.svg, path.dev.source.img])
@@ -149,7 +153,6 @@ const source = () => {
         .pipe(dest(path.build.source));
 };
 const watching = () => {
-    watch(path.dev.fonts, fonts);
     watch(path.dev.scss, styles);
     watch(path.dev.js, js);
     watch(path.dev.html[0]).on("change", sync.reload);
@@ -163,6 +166,8 @@ const watching = () => {
 const cleanDist = () => {
     return del(buildFolder);
 };
+
+exports.otfttf = otfttf; // otf в ttf
 exports.fonts = fonts;
 exports.html = html;
 exports.js = js;
@@ -179,6 +184,6 @@ exports.default = series(
     // jsLibr,
     js,
     source,
-    // fonts,
+    fonts,
     parallel(server, watching)
 );
