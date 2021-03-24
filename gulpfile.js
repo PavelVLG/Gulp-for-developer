@@ -13,6 +13,11 @@ const rename = require("gulp-rename"); // переименовывает
 const mediagroup = require("gulp-group-css-media-queries"); // собирает медиа запросы и обединяет
 const include = require("gulp-file-include");
 const imagemin = require("gulp-imagemin"); // сжатие картинки
+const ttf = require("gulp-ttf2woff"); // преобразует шрифты
+const ttf2 = require("gulp-ttf2woff2"); // преобразует шрифты
+const fonter = require("gulp-fonter"); // преобразует шрифты
+
+/**************Основные пути*******************/
 const buildFolder = "dist"; // папка сбора и запуска сервера
 const developerFolder = "src"; // папка разработки
 
@@ -29,6 +34,7 @@ const server = () => {
 const path = {
     build: {
         css: buildFolder + "/" + "css",
+        fonts: buildFolder + "/" + "fonts",
         js: buildFolder + "/" + "js",
         html: buildFolder + "/",
         source: buildFolder + "/" + "source",
@@ -46,6 +52,7 @@ const path = {
             png: developerFolder + "/" + "source" + "/" + "png" + "/*" + ".png",
         },
         UI: developerFolder + "/" + "source" + "/" + "ui" + "/*" + ".js",
+        fonts: developerFolder + "/" + "scss" + "/" + "fonts" + "/*",
     },
 };
 /*****************************HTML**********************************/
@@ -110,6 +117,25 @@ const styles = () => {
         .pipe(dest(path.build.css))
         .pipe(sync.stream());
 };
+
+/****************fonts****************************/
+const fonts = () => {
+    src([path.dev.fonts + "/*" + ".ttf", path.dev.fonts + "/*" + ".ttf2"])
+        .pipe(ttf())
+        .pipe(path.build.fonts);
+    return src(path.dev.fonts).pipe(ttf2()).pipe(dest(path.build.fonts));
+};
+
+const fonter = () => {
+    src(path.dev.fonts + "/*" + ".otf")
+        .pipe(
+            fonter({
+                formats: ["ttf"],
+            })
+        )
+        .pipe(dest(path.dev.fonts));
+};
+/****************************img***************************/
 const source = () => {
     return src([path.dev.source.png, path.dev.source.svg, path.dev.source.img])
         .pipe(
@@ -123,6 +149,7 @@ const source = () => {
         .pipe(dest(path.build.source));
 };
 const watching = () => {
+    watch(path.dev.fonts, fonts);
     watch(path.dev.scss, styles);
     watch(path.dev.js, js);
     watch(path.dev.html[0]).on("change", sync.reload);
@@ -134,9 +161,9 @@ const watching = () => {
 };
 
 const cleanDist = () => {
-    return del("dist");
+    return del(buildFolder);
 };
-
+exports.fonts = fonts;
 exports.html = html;
 exports.js = js;
 exports.jsLibr = jsLibr;
@@ -152,5 +179,6 @@ exports.default = series(
     // jsLibr,
     js,
     source,
+    // fonts,
     parallel(server, watching)
 );
