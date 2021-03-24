@@ -52,7 +52,7 @@ const path = {
             png: developerFolder + "/" + "source" + "/" + "png" + "/*" + ".png",
         },
         UI: developerFolder + "/" + "source" + "/" + "ui" + "/*" + ".js",
-        fonts: developerFolder + "/" + "fonts" + "/*",
+        fonts: developerFolder + "/" + "scss" + "/" + "fonts" + "/*",
     },
 };
 /*****************************HTML**********************************/
@@ -121,6 +121,7 @@ const styles = () => {
 /****************fonts****************************/
 
 const fonts = () => {
+    // ttf in build
     src(path.dev.fonts + ".ttf")
         .pipe(ttf())
         .pipe(dest(path.build.fonts));
@@ -130,6 +131,7 @@ const fonts = () => {
 };
 
 const otfttf = () => {
+    // otf in ttf
     src(path.dev.fonts + ".otf")
         .pipe(
             fonter({
@@ -138,6 +140,7 @@ const otfttf = () => {
         )
         .pipe(dest(path.dev.fonts));
 };
+
 
 /****************************img***************************/
 const source = () => {
