@@ -11,8 +11,10 @@ const plumber = require("gulp-plumber"); // показывает ошибки
 const sourcemaps = require("gulp-sourcemaps"); // делает map
 const rename = require("gulp-rename"); // переименовывает
 const mediagroup = require("gulp-group-css-media-queries"); // собирает медиа запросы и обединяет
+const include = require("gulp-include");
 const buildFolder = "dist"; // папка сбора и запуска сервера
 const developerFolder = "src"; // папка разработки
+
 const server = () => {
     sync.init({
         UI: 3000,
@@ -45,6 +47,7 @@ const path = {
 /***************************************************************/
 const html = () => {
     return src(path.dev.html)
+        .pipe(include())
         .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
         .pipe(dest(path.build.html));
 };
@@ -53,6 +56,7 @@ const js = () => {
     return src(path.dev.js)
         .pipe(sourcemaps.init())
         .pipe(plumber())
+        .pipe(include())
         .pipe(concat("index"))
 
         .pipe(
