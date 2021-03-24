@@ -21,7 +21,8 @@ const fonter = require("gulp-fonter"); // преобразует шрифты
 const buildFolder = "dist"; // папка сбора и запуска сервера
 const developerFolder = "src"; // папка разработки
 
-const server = () => { // запускает сервер. ON
+const server = () => {
+    // запускает сервер. ON
     sync.init({
         UI: 3000, // порт по умолчанию
         notify: true, // показывает обновление на станице("черное окошко") ON
@@ -31,7 +32,8 @@ const server = () => { // запускает сервер. ON
     });
 };
 
-const path = {  // описание путей
+const path = {
+    // описание путей
     build: {
         css: buildFolder + "/" + "css",
         fonts: buildFolder + "/" + "fonts",
@@ -40,7 +42,7 @@ const path = {  // описание путей
         source: buildFolder + "/" + "source",
     },
     dev: {
-        scss: developerFolder + "/" + "scss" + "/*" + ".scss",
+        scss: developerFolder + "/" + "scss" + "/**/*" + ".scss",
         js: developerFolder + "/" + "js" + "/*" + ".js",
         html: [
             developerFolder + "/*" + ".html",
@@ -56,14 +58,16 @@ const path = {  // описание путей
     },
 };
 /*****************************HTML**********************************/
-const html = () => { //ON
+const html = () => {
+    //ON
     return src(path.dev.html)
         .pipe(include()) // собирает html файлы
         .pipe(htmlmin({ collapseWhitespace: true })) // Сжимает html.
         .pipe(dest(path.build.html)); // выкладывает в эту папку результат
 };
 /*****************************JavaScript************************************/
-const js = () => { // ON
+const js = () => {
+    // ON
     return src(path.dev.js)
         .pipe(sourcemaps.init()) // делает карту
         .pipe(plumber()) // отслеживает ошибки
@@ -74,13 +78,14 @@ const js = () => { // ON
                 extname: ".min.js",
             })
         )
-        .pipe(uglify())// сжимает
-        .pipe(sourcemaps.write("."))// дает js.min.js.map
+        .pipe(uglify()) // сжимает
+        .pipe(sourcemaps.write(".")) // дает js.min.js.map
         .pipe(dest(path.build.js)) //выкладывает в эту папку результат
         .pipe(sync.stream());
 };
 /***********************сторонние библиотеки*************************/
-const jsLibr = () => { // OFF
+const jsLibr = () => {
+    // OFF
     return src(path.dev.UI)
         .pipe(plumber())
         .pipe(concat("vendor.min.js")) // файл для подключения сторонних библиотек
@@ -88,8 +93,9 @@ const jsLibr = () => { // OFF
         .pipe(dest(path.build.js));
 };
 /************************scss в css**********************************/
-const styles = () => { // ON
-    return src(path.dev.scss)
+const styles = () => {
+    // ON
+    return src("src/scss/*.scss")
         .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(scss({ outputStyle: "expanded" })) //scss в css
@@ -108,8 +114,8 @@ const styles = () => { // ON
                 extname: ".min.css",
             })
         )
-        .pipe(csso())//сжимает css
-        .pipe(mediagroup())// jобединяет меди запросы
+        .pipe(csso()) //сжимает css
+        .pipe(mediagroup()) // jобединяет меди запросы
         .pipe(sourcemaps.write("."))
         .pipe(dest(path.build.css))
         .pipe(sync.stream());
@@ -117,7 +123,8 @@ const styles = () => { // ON
 
 /****************fonts****************************/
 
-const fonts = () => { // выводит в билд шрифты ON
+const fonts = () => {
+    // выводит в билд шрифты ON
     // ttf in build
     src(path.dev.fonts + ".ttf")
         .pipe(ttf())
@@ -127,7 +134,8 @@ const fonts = () => { // выводит в билд шрифты ON
         .pipe(dest(path.build.fonts));
 };
 
-const otfttf = () => {// из otf в ttf, складывает в разработку OFF
+const otfttf = () => {
+    // из otf в ttf, складывает в разработку OFF
     src(path.dev.fonts + ".otf")
         .pipe(
             fonter({
@@ -138,7 +146,8 @@ const otfttf = () => {// из otf в ttf, складывает в разрабо
 };
 
 /****************************img***************************/
-const source = () => { //переносит и сжимает картинки ON
+const source = () => {
+    //переносит и сжимает картинки ON
     return src([path.dev.source.png, path.dev.source.svg, path.dev.source.img])
         .pipe(
             imagemin({
@@ -161,7 +170,8 @@ const watching = () => {
     );
 };
 
-const cleanDist = () => { // удаляет папку dist
+const cleanDist = () => {
+    // удаляет папку dist
     return del(buildFolder);
 };
 
